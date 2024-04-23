@@ -6,6 +6,7 @@ const userRpute = require("./src/router/user");
 const blogRoute = require("./src/router/blog");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const ImageUploadRoute = require("./src/router/imageUpload");
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 app.use("/api/v1", productRoute);
 app.use(userRpute);
 app.use("/api/v1", blogRoute);
+app.use("/api/v1", ImageUploadRoute);
 
 let port = 4000;
 
