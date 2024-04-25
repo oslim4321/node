@@ -1,5 +1,6 @@
 const Cart = require("../model/Cart");
 const product = require("../model/product");
+const cloudinary = require("../utils/cloudinary-setup");
 
 async function getAllProducts(req, res) {
   try {
@@ -23,9 +24,20 @@ const singleProduct = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
+  const { title, description, price, category } = req.body;
   try {
-    // console.log(req.body);
-    const response = await product.create(req.body);
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "SQIImage",
+    });
+    console.log(result, "result");
+
+    const response = await product.create({
+      title,
+      description,
+      price,
+      category,
+      image: result.secure_url,
+    });
     if (!response) {
       return res.status(400).json({ message: "error creating product" });
     }
