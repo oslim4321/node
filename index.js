@@ -12,7 +12,7 @@ const authRoute = require("./src/router/auth");
 const app = express();
 app.use(cors());
 
-const mongoApiConnect = process.env.mongoURL;
+const mongoApiConnect = process.env.mongoApiConnect;
 
 app.use(express.json());
 app.use(morgan("dev"));
