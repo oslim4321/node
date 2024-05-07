@@ -65,7 +65,21 @@ const handleLogin = async (req, res) => {
     console.log(req.body);
   } catch (error) {}
 };
-module.exports = { handleSignup, handleLogin };
+
+const handleCheckAuth = async (req, res) => {
+  try {
+    // console.log(req.user);
+    // console.log("hell world");
+    const user = await User.findById(req.user);
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(error.status).json({ message });
+  }
+};
+module.exports = { handleSignup, handleLogin, handleCheckAuth };
 
 // get tge user details from the client -> Email and password 👍
 // check if the user Email and pass they sentis not empty 👍
